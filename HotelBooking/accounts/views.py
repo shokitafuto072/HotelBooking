@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import CustomUser
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 
 def index(request):
     context = {'user': request.user}
