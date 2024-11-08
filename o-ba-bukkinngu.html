@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オーバーブッキング管理システム</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 10px; text-align: center; border: 1px solid #ccc; }
+        th { background-color: #f2f2f2; }
+        .available { background-color: #c6f6c6; }
+        .unavailable { background-color: #f6c6c6; }
+        .overbooked { background-color: #ff6b6b; color: white; font-weight: bold; }
+        .alert { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h2>オーバーブッキング管理システム</h2>
+
+<!-- オーバーブッキング設定パネル -->
+<div>
+    <h3>オーバーブッキング設定</h3>
+    <label>
+        <input type="checkbox" id="enableOverbooking" checked> オーバーブッキングを有効にする
+    </label>
+    <br><br>
+    <label>
+        固定オーバーブッキング数: 
+        <input type="number" id="fixedOverbookAmount" value="1" min="0">
+    </label>
+    <br><br>
+    <label>
+        定員に対するオーバーブッキング比率（%）: 
+        <input type="number" id="overbookingRatio" value="20" min="0" max="100">
+    </label>
+    <br><br>
+    <label>
+        オーバーブッキングの限定期間（例: 特定の月）:
+        <input type="text" id="overbookingPeriod" placeholder="例: 11月">
+    </label>
+</div>
+
+<!-- オーバーブッキングの進行状況と履歴 -->
+<div>
+    <h3>オーバーブッキング進行状況</h3>
+    <p id="overbookingStatus">現在、オーバーブッキングはありません。</p>
+    <p id="overbookingHistory">オーバーブッキング履歴:</p>
+</div>
+
+<!-- 客室の空き状況表 -->
+<table id="roomTable">
+    <thead>
+        <tr>
+            <th>部屋番号</th>
+            <th>客室名</th>
+            <th>料金</th>
+            <th>定員</th>
+            <th>1日</th>
+            <th>2日</th>
+            <th>3日</th>
+            <th>4日</th>
+            <th>5日</th>
+            <!-- 必要に応じて日付を追加 -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>101</td>
+            <td>スタンダード</td>
+            <td>¥10,000</td>
+            <td>2</td>
+            <td class="available">○</td>
+            <td class="available">○</td>
+            <td class="overbooked" data-overbooked="3">OB</td> <!-- オーバーブッキングの例 -->
+            <td class="available">○</td>
+            <td class="unavailable">×</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- JavaScript -->
+<script>
+    // オーバーブッキング設定変数
+    let overbookingEnabled = document.getElementById('enableOverbooking').checked;
+    let fixedOverbookAmount = parseInt(document.getElementById('fixedOverbookAmount').value, 10);
+    let overbookingRatio = parseFloat(document.getElementById('overbookingRatio').value) / 100;
+
+    // 状況と通知の表示
+    function updateOverbookingStatus() {
+        const roomTable = document.getElementById("roomTable");
+        const overbookingStatus = document.getElementById("overbookingStatus");
+        let overbookedRooms = 0;
+
+        // 各部屋のオーバーブッキング状態をチェック
+        for (let row of roomTable.getElementsByTagName("tr")) {
+            const capacity = parseInt(row.cells[3]?.textContent, 10);
+            const overbookedCells = row.querySelectorAll(".overbooked");
+            for (let cell of overbookedCells) {
+                const overbookedGuests = parseInt(cell.getAttribute("data-overbooked"), 10);
+
+                if (overbookedGuests > capacity * (1 + overbookingRatio) + fixedOverbookAmount) {
+                    cell.classList.add("alert");
+                    overbookedRooms++;
+                }
+            }
+        }
+
+        // オーバーブッキング状態の表示更新
+        overbookingStatus.textContent = overbookedRooms > 0 
+            ? `現在、${overbookedRooms} 部屋がオーバーブッキングされています。` 
+            : "現在、オーバーブッキングはありません。";
+    }
+
+    // 設定の変更を監視
+    document.getElementById("enableOverbooking").addEventListener("change", (e) => {
+        overbookingEnabled = e.target.checked;
+        updateOverbookingStatus();
+    });
+    document.getElementById("fixedOverbookAmount").addEventListener("input", (e) => {
+        fixedOverbookAmount = parseInt(e.target.value, 10);
+        updateOverbookingStatus();
+    });
+    document.getElementById("overbookingRatio").addEventListener("input", (e) => {
+        overbookingRatio = parseFloat(e.target.value) / 100;
+        updateOverbookingStatus();
+    });
+
+    // 初期状態の表示更新
+    updateOverbookingStatus();
+</script>
+
+</body>
+</html>

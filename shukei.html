@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客室の空き状況</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .available {
+            background-color: #c6f6c6;
+        }
+        .unavailable {
+            background-color: #f6c6c6;
+        }
+    </style>
+</head>
+<body>
+
+<h2>客室の空き状況（例: 11月）</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>部屋番号</th>
+            <th>客室名</th>
+            <th>料金</th>
+            <!-- 日付の列を生成 -->
+            <!-- 1日〜30日または31日まで -->
+            <th>1日</th>
+            <th>2日</th>
+            <th>3日</th>
+            <th>4日</th>
+            <th>5日</th>
+            <!-- 必要に応じて日付を追加 -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- 部屋101の行 -->
+        <tr>
+            <td>101</td>
+            <td>スタンダード</td>
+            <td>¥10,000</td>
+            <td class="unavailable">×</td>
+            <td class="available">○</td>
+            <td class="available">○</td>
+            <td class="unavailable">×</td>
+            <td class="available">○</td>
+            <!-- 必要に応じて続けて空き状況を追加 -->
+        </tr>
+        <!-- 部屋102の行 -->
+        <tr>
+            <td>102</td>
+            <td>スイート</td>
+            <td>¥20,000</td>
+            <td class="available">○</td>
+            <td class="available">○</td>
+            <td class="unavailable">×</td>
+            <td class="available">○</td>
+            <td class="unavailable">×</td>
+            <!-- 必要に応じて続けて空き状況を追加 -->
+        </tr>
+        <!-- 部屋103の行 -->
+        <tr>
+            <td>103</td>
+            <td>デラックス</td>
+            <td>¥15,000</td>
+            <td class="unavailable">×</td>
+            <td class="unavailable">×</td>
+            <td class="available">○</td>
+            <td class="unavailable">×</td>
+            <td class="available">○</td>
+            <!-- 必要に応じて続けて空き状況を追加 -->
+        </tr>
+        <!-- 他の部屋も同様に追加 -->
+    </tbody>
+</table>
+
+</body>
+</html>
