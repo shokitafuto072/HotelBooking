@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
   </head>
   <body>
     <h1>掲載情報の編集</h1>
-    <div class="dropdown">
+    <!-- <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           すべて
         </button>
@@ -17,21 +17,35 @@
           <li><a class="dropdown-item" href="#">Another action</a></li>
           <li><a class="dropdown-item" href="#">Something else here</a></li>
         </ul>
-    </div>
-    <h2>適用時の価格</h2>
-    <h2>周年感謝際</h2>
-    <h2>割引適用範囲</h2>
-    <h2>割引適用期間</h2>
+    </div> -->
+    <details>
+      <summary>
+        <h2>すべてに適用</h2>
+        <h5>適用時の価格</h5>
+        <input type="text" name="name">2345yen
+      </summary>
+      <p>
+        <form action="#" method="post">
+          <p>ユーザー名：<br>
+          <input type="text" name="name"></p>
+          <p><input type="button" value="確認する" id="button2"></p>
+        </form>
+        <h5>割引適用範囲</h5>
+        <h5>割引適用期間</h5>
+      </p>
+    </details>
 
-    
+    <details>
+      <summary>
+        <h2>各プラン</h2>
+        <h5>適用時の価格</h5>2345yen
+      </summary>
+      <p>
+        <h5>割引適用範囲</h5>
+        <h5>割引適用期間</h5>
+      </p>
+    </details>
 
-    
-
-    
-
-    
-
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>
