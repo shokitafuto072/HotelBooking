@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
 
-############################私たちは総じておまんこが大好きです。###########################
 # Create your views here.
 
 def index(request):
