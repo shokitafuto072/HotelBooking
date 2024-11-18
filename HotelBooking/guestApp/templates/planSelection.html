@@ -3,16 +3,65 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>プラン選択</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+      body {
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+      .plan-card {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .plan-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .plan-title {
+        font-size: 1.5rem;
+        color: #495057;
+        margin-top: 10px;
+      }
+      .plan-description, .plan-price, .plan-details {
+        font-size: 1.1rem;
+        color: #495057;
+        margin-top: 10px;
+      }
+      .select-plan-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+      .select-plan-btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
   </head>
   <body>
     <h1>プラン選択</h1>
-    <p>画像</p>
-    <p>プランの概要</p>
-    <p>値段</p>
-    <p>プランの詳細</p>
-    <p>このプランを選択</p>
+    <div class="plan-card">
+      <div class="plan-image">
+        <img src="https://via.placeholder.com/600x400" alt="プラン画像">
+      </div>
+      <p class="plan-title">プランの概要</p>
+      <p class="plan-description">快適な宿泊を提供する豪華プランです。</p>
+      <p class="plan-price">値段: ¥15,000</p>
+      <p class="plan-details">プランの詳細: お部屋は海の見える広々とした空間です。</p>
+      <button class="select-plan-btn">このプランを選択</button>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>
