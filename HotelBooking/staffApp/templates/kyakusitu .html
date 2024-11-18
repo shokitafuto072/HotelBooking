@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宿泊施設管理システム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .status-clean { background-color: #d4f4d4; }
+        .status-occupied { background-color: #f4d4d4; }
+        .status-maintenance { background-color: #f4e3d4; }
+        .status-vacant { background-color: #d4e3f4; }
+        .delete-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #ff4b4b;
+        }
+    </style>
+</head>
+<body>
+
+<h1>宿泊施設管理システム</h1>
+
+<!-- 部屋の状態管理 -->
+<h2>部屋の状態</h2>
+<table>
+    <thead>
+        <tr>
+            <th>部屋番号</th>
+            <th>部屋タイプ</th>
+            <th>状態</th>
+            <th>現在の料金</th>
+            <th>アメニティ</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="roomStatusTable">
+        <tr>
+            <td>101</td>
+            <td>シングル</td>
+            <td class="status-vacant">空室</td>
+            <td>¥8,000</td>
+            <td>Wi-Fi、テレビ</td>
+            <td><button class="delete-btn" onclick="deleteRow(this)">削除</button></td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td>ダブル</td>
+            <td class="status-occupied">満室</td>
+            <td>¥12,000</td>
+            <td>Wi-Fi、テレビ、ミニバー</td>
+            <td><button class="delete-btn" onclick="deleteRow(this)">削除</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- 管理用ツール -->
+<h2>管理ツール</h2>
+<div>
+    <label>部屋番号: <input type="text" id="roomNumber" placeholder="例: 103"></label>
+    <label>部屋タイプ: 
+        <select id="roomType">
+            <option value="シングル">シングル</option>
+            <option value="ダブル">ダブル</option>
+            <option value="スイート">スイート</option>
+        </select>
+    </label>
+    <label>状態: 
+        <select id="roomStatus">
+            <option value="空室">空室</option>
+            <option value="満室">満室</option>
+            <option value="清掃中">清掃中</option>
+            <option value="メンテナンス中">メンテナンス中</option>
+        </select>
+    </label>
+    <button onclick="addRoom()">部屋を追加</button>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // 部屋を追加する関数
+    function addRoom() {
+        const roomNumber = document.getElementById('roomNumber').value.trim();
+        const roomType = document.getElementById('roomType').value;
+        const roomStatus = document.getElementById('roomStatus').value;
+
+        if (!roomNumber) {
+            alert('部屋番号を入力してください');
+            return;
+        }
+
+        const table = document.getElementById('roomStatusTable');
+        const row = table.insertRow();
+        
+        row.innerHTML = `
+            <td>${roomNumber}</td>
+            <td>${roomType}</td>
+            <td class="${getStatusClass(roomStatus)}">${roomStatus}</td>
+            <td>自動設定</td>
+            <td>自動設定</td>
+            <td><button class="delete-btn" onclick="deleteRow(this)">削除</button></td>
+        `;
+    }
+
+    // 部屋を削除する関数
+    function deleteRow(button) {
+        const row = button.closest('tr');
+        row.remove();
+    }
+
+    // 状態に応じてクラスを取得
+    function getStatusClass(status) {
+        switch (status) {
+            case '空室': return 'status-vacant';
+            case '満室': return 'status-occupied';
+            case '清掃中': return 'status-clean';
+            case 'メンテナンス中': return 'status-maintenance';
+            default: return '';
+        }
+    }
+</script>
+
+</body>
+</html>
