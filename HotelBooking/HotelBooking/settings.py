@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bookingfront.apps.BookingfrontConfig',
-    'bookingback.apps.bookingbackConfig',
+    'bookingback.apps.BookingbackConfig',
     'accounts.apps.AccountsConfig',
     'apps.apps.AppsConfig',
     'django.contrib.admin',
@@ -126,3 +126,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
