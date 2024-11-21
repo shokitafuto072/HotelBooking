@@ -3,21 +3,160 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>宿泊者リスト</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <body>
-    <h1>宿泊者リスト</h1>
-    宿泊者名
-    電話番号（携帯）
-    メールアドレス
-    住所
-    チェックイン日・チェックアウト日
-    予約番号
-    支払い方法
-    クレジットカードの情報
-    特別な要望
-    
+    <div class="container mt-5">
+      <h1 class="mb-4">宿泊者リスト</h1>
+
+      <!-- 宿泊者リストテーブル -->
+      <table class="table table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>宿泊者名</th>
+            <th>電話番号（携帯）</th>
+            <th>メールアドレス</th>
+            <th>住所</th>
+            <th>チェックイン日</th>
+            <th>チェックアウト日</th>
+            <th>予約番号</th>
+            <th>支払い方法</th>
+            <th>クレジットカード情報</th>
+            <th>特別な要望</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="guestTable">
+          <tr>
+            <td>山田 太郎</td>
+            <td>090-1234-5678</td>
+            <td>yamada@example.com</td>
+            <td>東京都新宿区1-2-3</td>
+            <td>2023-11-08</td>
+            <td>2023-11-10</td>
+            <td>ABC12345</td>
+            <td>クレジットカード</td>
+            <td>**** **** **** 1234</td>
+            <td>禁煙ルーム希望</td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">削除</button></td>
+          </tr>
+          <tr>
+            <td>佐藤 花子</td>
+            <td>090-9876-5432</td>
+            <td>sato@example.com</td>
+            <td>大阪府大阪市4-5-6</td>
+            <td>2023-11-09</td>
+            <td>2023-11-11</td>
+            <td>DEF67890</td>
+            <td>現金</td>
+            <td>-</td>
+            <td>追加ベッド希望</td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">削除</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 宿泊者情報追加フォーム -->
+      <h2 class="mt-4">宿泊者情報の追加</h2>
+      <form id="addGuestForm" class="mb-4">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label for="guestName" class="form-label">宿泊者名</label>
+            <input type="text" id="guestName" class="form-control" placeholder="例: 鈴木 一郎">
+          </div>
+          <div class="col-md-3">
+            <label for="phone" class="form-label">電話番号（携帯）</label>
+            <input type="tel" id="phone" class="form-control" placeholder="例: 090-1111-2222">
+          </div>
+          <div class="col-md-3">
+            <label for="email" class="form-label">メールアドレス</label>
+            <input type="email" id="email" class="form-control" placeholder="例: example@example.com">
+          </div>
+          <div class="col-md-3">
+            <label for="address" class="form-label">住所</label>
+            <input type="text" id="address" class="form-control" placeholder="例: 愛知県名古屋市7-8-9">
+          </div>
+          <div class="col-md-3">
+            <label for="checkin" class="form-label">チェックイン日</label>
+            <input type="date" id="checkin" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="checkout" class="form-label">チェックアウト日</label>
+            <input type="date" id="checkout" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="reservationNumber" class="form-label">予約番号</label>
+            <input type="text" id="reservationNumber" class="form-control" placeholder="例: XYZ12345">
+          </div>
+          <div class="col-md-3">
+            <label for="paymentMethod" class="form-label">支払い方法</label>
+            <select id="paymentMethod" class="form-select">
+              <option selected>クレジットカード</option>
+              <option>現金</option>
+              <option>電子マネー</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="cardInfo" class="form-label">クレジットカード情報</label>
+            <input type="text" id="cardInfo" class="form-control" placeholder="例: **** **** **** 5678">
+          </div>
+          <div class="col-md-6">
+            <label for="specialRequest" class="form-label">特別な要望</label>
+            <textarea id="specialRequest" class="form-control" rows="2" placeholder="例: 追加ベッド希望"></textarea>
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button type="button" class="btn btn-primary w-100" onclick="addGuest()">追加</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // 宿泊者情報の追加
+      function addGuest() {
+        const guestName = document.getElementById('guestName').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+        const checkin = document.getElementById('checkin').value;
+        const checkout = document.getElementById('checkout').value;
+        const reservationNumber = document.getElementById('reservationNumber').value;
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const cardInfo = document.getElementById('cardInfo').value || '-';
+        const specialRequest = document.getElementById('specialRequest').value;
+
+        if (!guestName || !phone || !email || !checkin || !checkout || !reservationNumber) {
+          alert('全ての必須項目を入力してください');
+          return;
+        }
+
+        const table = document.getElementById('guestTable');
+        const row = table.insertRow();
+        row.innerHTML = `
+          <td>${guestName}</td>
+          <td>${phone}</td>
+          <td>${email}</td>
+          <td>${address}</td>
+          <td>${checkin}</td>
+          <td>${checkout}</td>
+          <td>${reservationNumber}</td>
+          <td>${paymentMethod}</td>
+          <td>${cardInfo}</td>
+          <td>${specialRequest}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">削除</button></td>
+        `;
+
+        document.getElementById('addGuestForm').reset();
+      }
+
+      // 宿泊者情報の削除
+      function deleteRow(button) {
+        const row = button.closest('tr');
+        row.remove();
+      }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>
