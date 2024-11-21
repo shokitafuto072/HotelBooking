@@ -8,6 +8,10 @@ def planselection(request):
     return render(request,'planselection.html')
 
 
+def bookingmanage(request):
+    return render(request,'bookingmanage.html')
+
+
 
 
 # Create your views here.
