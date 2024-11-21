@@ -3,35 +3,106 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>掲載情報の編集</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <body>
-    <h1>掲載情報の編集</h1>
-    <div class="dropdown">
+    <div class="container mt-5">
+      <h1 class="mb-4">掲載情報の編集</h1>
+
+      <!-- ドロップダウンメニュー -->
+      <div class="dropdown mb-4">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          すべて
+          すべてのカテゴリ
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li><a class="dropdown-item" href="#">宿泊プラン</a></li>
+          <li><a class="dropdown-item" href="#">特別割引</a></li>
+          <li><a class="dropdown-item" href="#">イベント情報</a></li>
         </ul>
+      </div>
+
+      <!-- 適用時の価格 -->
+      <h2 class="mb-3">適用時の価格</h2>
+      <form>
+        <div class="mb-3">
+          <label for="basePrice" class="form-label">基本料金 (1泊あたり)</label>
+          <input type="number" class="form-control" id="basePrice" placeholder="例: 10000">
+        </div>
+        <div class="mb-3">
+          <label for="discountedPrice" class="form-label">割引後の料金</label>
+          <input type="number" class="form-control" id="discountedPrice" placeholder="例: 8000">
+        </div>
+      </form>
+
+      <!-- 周年感謝祭 -->
+      <h2 class="mt-4 mb-3">周年感謝祭の設定</h2>
+      <form>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="anniversarySale">
+          <label class="form-check-label" for="anniversarySale">周年感謝祭を有効にする</label>
+        </div>
+      </form>
+
+      <!-- 割引適用範囲 -->
+      <h2 class="mt-4 mb-3">割引適用範囲</h2>
+      <form>
+        <div class="mb-3">
+          <label for="applicableRooms" class="form-label">対象の部屋タイプ</label>
+          <select class="form-select" id="applicableRooms">
+            <option selected>すべての部屋タイプ</option>
+            <option>シングル</option>
+            <option>ダブル</option>
+            <option>スイート</option>
+          </select>
+        </div>
+      </form>
+
+      <!-- 割引適用期間 -->
+      <h2 class="mt-4 mb-3">割引適用期間</h2>
+      <form>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="startDate" class="form-label">開始日</label>
+            <input type="date" class="form-control" id="startDate">
+          </div>
+          <div class="col-md-6">
+            <label for="endDate" class="form-label">終了日</label>
+            <input type="date" class="form-control" id="endDate">
+          </div>
+        </div>
+      </form>
+
+      <!-- 保存ボタン -->
+      <div class="mt-4">
+        <button type="button" class="btn btn-primary w-100" onclick="saveChanges()">変更を保存</button>
+      </div>
     </div>
-    <h2>適用時の価格</h2>
-    <h2>周年感謝際</h2>
-    <h2>割引適用範囲</h2>
-    <h2>割引適用期間</h2>
 
-    
+    <script>
+      // 保存ボタンの動作
+      function saveChanges() {
+        const basePrice = document.getElementById('basePrice').value;
+        const discountedPrice = document.getElementById('discountedPrice').value;
+        const anniversarySale = document.getElementById('anniversarySale').checked;
+        const applicableRooms = document.getElementById('applicableRooms').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
 
-    
+        if (!basePrice || !discountedPrice || !startDate || !endDate) {
+          alert('全ての必須項目を入力してください');
+          return;
+        }
 
-    
+        alert(`変更を保存しました:
+        - 基本料金: ¥${basePrice}
+        - 割引後の料金: ¥${discountedPrice}
+        - 周年感謝祭: ${anniversarySale ? '有効' : '無効'}
+        - 対象部屋タイプ: ${applicableRooms}
+        - 割引期間: ${startDate} ～ ${endDate}`);
+      }
+    </script>
 
-    
-
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>
