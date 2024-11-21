@@ -20,6 +20,9 @@
         background-color: #f8f9fa;
         margin-bottom: 15px;
       }
+      .availability {
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
@@ -29,25 +32,37 @@
       <!-- Room Type 1 -->
       <div class="room-info">
         <p><strong>部屋タイプ:</strong> シングルルーム</p>
-        <p><strong>利用日:</strong> 2024年11月20日 〜 2024年11月22日</p>
         <p><strong>詳細:</strong> 一人用のシンプルなお部屋で、快適なベッドとWi-Fi完備</p>
-        <button type="button" class="btn btn-primary">この部屋を選択</button>
+        <div class="availability">
+          <p><strong>2024年11月20日:</strong> 残り3部屋</p>
+          <p><strong>2024年11月21日:</strong> 残り2部屋</p>
+          <p><strong>2024年11月22日:</strong> 残り1部屋</p>
+        </div>
+        <li class="list-group-item"><a href="{% url 'bookingfront:planselection' %}">この部屋を選択</a></li>
       </div>
 
       <!-- Room Type 2 -->
       <div class="room-info">
         <p><strong>部屋タイプ:</strong> ダブルルーム</p>
-        <p><strong>利用日:</strong> 2024年11月23日 〜 2024年11月25日</p>
         <p><strong>詳細:</strong> カップル向けのゆったりした部屋、キングサイズベッド完備</p>
-        <button type="button" class="btn btn-primary">この部屋を選択</button>
+        <div class="availability">
+          <p><strong>2024年11月23日:</strong> 残り5部屋</p>
+          <p><strong>2024年11月24日:</strong> 残り4部屋</p>
+          <p><strong>2024年11月25日:</strong> 残り3部屋</p>
+        </div>
+        <li class="list-group-item"><a href="{% url 'bookingfront:planselection' %}">この部屋を選択</a></li>
       </div>
 
       <!-- Room Type 3 -->
       <div class="room-info">
         <p><strong>部屋タイプ:</strong> スイートルーム</p>
-        <p><strong>利用日:</strong> 2024年11月26日 〜 2024年11月28日</p>
         <p><strong>詳細:</strong> ラグジュアリーな空間で、広いリビングエリアと豪華なバスルーム付き</p>
-        <button type="button" class="btn btn-primary">この部屋を選択</button>
+        <div class="availability">
+          <p><strong>2024年11月26日:</strong> 残り2部屋</p>
+          <p><strong>2024年11月27日:</strong> 残り1部屋</p>
+          <p><strong>2024年11月28日:</strong> 残り0部屋</p>
+        </div>
+        <li class="list-group-item"><a href="{% url 'bookingfront:planselection' %}">この部屋を選択</a></li>
       </div>
     </div>
 

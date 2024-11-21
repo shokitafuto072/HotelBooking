@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+app_name='bookingfront'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("apps/", include("apps.urls")),
-    #path("", include("accounts.urls")),
+    path("acconut/", include("accounts.urls")),
     path('', include('bookingfront.urls')),
     path('bookingback/',include("bookingback.urls")),
+    path('bookingfront/',include("bookingfront.urls")),
 ]
