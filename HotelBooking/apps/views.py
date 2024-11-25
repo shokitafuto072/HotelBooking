@@ -11,3 +11,7 @@ def index(request):
         return HttpResponseRedirect('/')
     #template = loader.get_template("apps/index.html")
     #return HttpResponse(template.render({}, request))
+
+
+
+
