@@ -57,7 +57,6 @@
 
 
     <form method="POST" action="{% url 'bookingfront:booking_confirmation' %}">
-      {% csrf_token %}
         <label for="stay_date">宿泊日</label>
         <input type="date" name="stay_date" id="stay_date" ><!--requiredを書いていました。一時的にけします。-->
         

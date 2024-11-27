@@ -34,28 +34,29 @@
   </head>
   <body>
     <h1>部屋を選択</h1>
-            {% for room in room_types %}
+      {% for room in room_types %}
 
-    <div class="container">
-      <!-- Room Type 1 -->
-      <div class="room-info">
-        <img src="https://via.placeholder.com/150" alt="シングルルーム">
-        <div>
-          <p><strong>部屋タイプ:</strong>{{ room.name }}</p>
-          <p><strong>詳細:</strong> 一人用のシンプルなお部屋で、快適なベッドとWi-Fi完備</p>
-          <div class="availability">
+      <div class="container">
+        <!-- Room Type 1 -->
+        <div class="room-info">
+          <img src="https://via.placeholder.com/150" alt="シングルルーム">
+          <div>
+            <p><strong>部屋タイプ:</strong>{{ room.name }}</p>
+            <p><strong>詳細:</strong> 一人用のシンプルなお部屋で、快適なベッドとWi-Fi完備</p>
+            <div class="availability">
 
          
-            <div>
-                <p>{{ room.name }}</p>
-                <form method="POST" action="{% url 'bookingfront:plan_selection' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="room_id" value="{{ room.id }}">
-                    <button type="submit">選択</button>
-                </form>
-            </div>
-            {% endfor %}
-          <p><strong>2024年11月20日:</strong><a href="{% url 'bookingfront:plan_selection' %}">残り3部屋</a></p>    
+              <div>
+                  <p>{{ room.name }}</p>
+                  <form method="POST" action="{% url 'bookingfront:plan_selection' %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="room_id" value="{{ room.id }}">
+                      <button type="submit">選択</button>
+                  </form>
+              </div>
+            
+      {% endfor %}
+            <p><strong>2024年11月20日:</strong><a href="{% url 'bookingfront:plan_selection' %}">残り3部屋</a></p>    
             <p><strong>2024年11月21日:</strong><a href="{% url 'bookingfront:plan_selection' %}">残り2部屋</a></p>
             <p><strong>2024年11月22日:</strong><a href="{% url 'bookingfront:plan_selection' %}">残り1部屋</a></p>
           </div>
