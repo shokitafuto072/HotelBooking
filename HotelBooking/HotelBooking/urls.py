@@ -25,5 +25,5 @@ urlpatterns = [
     path("acconut/", include("accounts.urls")),
     path('', include('bookingfront.urls')),
     path('bookingback/',include("bookingback.urls")),
-    path('bookingfront/',include("bookingfront.urls")),
+   
 ]
