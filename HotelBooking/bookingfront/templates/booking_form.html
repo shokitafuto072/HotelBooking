@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>予約管理画面</title>
+    <title>予約の詳細を入力</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
       body {
@@ -53,48 +53,57 @@
     </style>
   </head>
   <body>
-    <h1>予約管理画面</h1>
+    <h1>予約の詳細を入力</h1>
 
-    <form action="/confirm_reservation" method="POST">
+
+    <form method="POST" action="{% url 'bookingfront:booking_confirmation' %}">
+      {% csrf_token %}
         <label for="stay_date">宿泊日</label>
-        <input type="date" name="stay_date" id="stay_date" required>
+        <input type="date" name="stay_date" id="stay_date" ><!--requiredを書いていました。一時的にけします。-->
         
         <label for="plan">プラン</label>
-        <select name="plan" id="plan" required>
+        <select name="plan" id="plan" ><!--requiredを書いていました。一時的にけします。-->
             <option value="basic">基本プラン</option>
             <option value="premium">プレミアムプラン</option>
         </select>
         
         <label for="price">料金</label>
-        <input type="number" name="price" id="price" placeholder="金額を入力" required>
+        <input type="number" name="price" id="price" placeholder="金額を入力" ><!--requiredを書いていました。一時的にけします。-->
         
         <label for="room_type">部屋タイプ</label>
-        <select name="room_type" id="room_type" required>
+        <select name="room_type" id="room_type" ><!--requiredを書いていました。一時的にけします。-->
             <option value="single">シングル</option>
             <option value="double">ダブル</option>
         </select>
         
         <label for="rooms">室数</label>
-        <input type="number" name="rooms" id="rooms" required>
+        <input type="number" name="rooms" id="rooms"><!--requiredを書いていました。一時的にけします。-->
         
         <label for="guests">宿泊人数</label>
-        <input type="number" name="guests" id="guests" required>
+        <input type="number" name="guests" id="guests" ><!--requiredを書いていました。一時的にけします。-->
         
         <label for="reserver_name">ご予約者</label>
-        <input type="text" name="reserver_name" id="reserver_name" placeholder="名前を入力" required>
+        <input type="text" name="reserver_name" id="reserver_name" placeholder="名前を入力" ><!--requiredを書いていました。一時的にけします。-->
         
         <label for="payment_method">決済方法</label>
-        <select name="payment_method" id="payment_method" required>
+        <select name="payment_method" id="payment_method"><!--requiredを書いていました。一時的にけします。-->
             <option value="credit">クレジットカード</option>
             <option value="cash">現金</option>
         </select>
         
         <label for="requests">ご要望</label>
         <textarea name="requests" id="requests" rows="3" placeholder="特別なご要望があれば記入してください"></textarea>
+
+        <button type="submit">予約確認</button>
         
-        <button type="submit">予約確定</button>
-    </form>
+
+
+
+       
+      </form>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>
+
+
