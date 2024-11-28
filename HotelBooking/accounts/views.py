@@ -1,36 +1,26 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import CustomUser
-from django.contrib.auth import login,logout
+from django.views.generic import CreateView,TemplateView
+from .forms import CustomUserCreationForm
+from django.urls import reverse_lazy
 
-def index(request):
-    context = {'user': request.user}
-    return render(request, 'index.html', context)
+class SignUpView(CreateView):
+    form_class=CustomUserCreationForm
+    template_name='signup.html'
+    success_url=reverse_lazy('accounts:signup_success')
+    def form_valid(self,form):
+        user=form.save()
+        self.object=user
+        return super().form_valid(form)
+    
+class SignUpSuccessView(TemplateView): 
+    template_name="signup_success.html"
 
 def signup(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    new_user = CustomUser(username=username, password=password)
-    new_user.save()
-    return HttpResponse('ユーザーの作成に成功しました')
+    return render(request, 'signup.html')
 
-def signin(request):
-    username = request.POST['username']
-    password = request.POST['password']
 
-    try:
-        user = CustomUser.objects.get(username=username)
-    except CustomUser.DoesNotExist:
-        return HttpResponse('ログインに失敗しました')
 
-    if user.password == password:
-        login(request, user)  # これを実行するとユーザをログイン状態にできる
-        return HttpResponseRedirect('/')
-    else:
-        return HttpResponse('ログインに失敗しました')
-    
-def signout(request):
-    logout(request)
-    return HttpResponseRedirect('/')
+# Create your views here.
+
 
 # Create your views here.

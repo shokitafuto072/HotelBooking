@@ -22,7 +22,7 @@ app_name='bookingfront'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("apps/", include("apps.urls")),
-    path("acconut/", include("accounts.urls")),
+    path("accounts/", include("accounts.urls")),
     path('', include('bookingfront.urls')),
     path('bookingback/',include("bookingback.urls")),
    
