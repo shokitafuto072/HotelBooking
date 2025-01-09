@@ -73,3 +73,33 @@ def booking_complete(request):
             'plan': selected_plan
         })
     return HttpResponse("Invalid request!", status=400)
+
+
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def checkinlist(request):
+    return render(request, 'checkinlist.html')
+
+def checkoutlist(request):
+    return render(request, 'checkoutlist.html')
+
+def guests_list(request):
+    return render(request, 'guests_list.html')
+
+def clean_manage(request):
+    return render(request, 'clean_manage.html')
+
+def kyakusitu(request):
+    return render(request, 'kyakusitu.html')
+
+def edit_plans(request):
+    return render(request, 'edit_plans.html')
+
+def shukei(request):
+    return render(request, 'shukei.html')
+
+def room_status(request):
+    return render(request, 'room_status.html')

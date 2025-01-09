@@ -21,6 +21,7 @@
         <thead class="table-light">
           <tr>
             <th>チェックイン時刻</th>
+            <th>予約ID</th>
             <th>名前</th>
             <th>滞在期間</th>
             <th>滞在期間 (チェックイン・チェックアウト日)</th>
@@ -34,6 +35,7 @@
         <tbody id="checkinTable">
           <tr data-checkedin="false">
             <td>14:00</td>
+            <td>予約ID</td>
             <td>山田 太郎</td>
             <td>2泊</td>
             <td>2023-11-08 ～ 2023-11-10</td>
@@ -41,12 +43,11 @@
             <td>クレジットカード</td>
             <td>101</td>
             <td>あり</td>
-            <td>
-              <button class="btn btn-success btn-sm" onclick="markCheckedIn(this)">チェックイン</button>
-            </td>
+            <td><button class="btn btn-success btn-sm" onclick="markCheckedIn(this)">チェックイン</button></td>
           </tr>
           <tr data-checkedin="true">
             <td>12:30</td>
+            <td>予約ID</td>
             <td>佐藤 花子</td>
             <td>1泊</td>
             <td>2023-11-08 ～ 2023-11-09</td>
@@ -54,9 +55,7 @@
             <td>現金</td>
             <td>102</td>
             <td>なし</td>
-            <td>
-              <span class="badge bg-primary">済み</span>
-            </td>
+            <td><span class="badge bg-primary">済み</span></td>
           </tr>
         </tbody>
       </table>
@@ -88,6 +87,7 @@
           <td>${row.cells[5].innerText}</td>
           <td>${row.cells[6].innerText}</td>
           <td>${row.cells[7].innerText}</td>
+          <td>${row.cells[8].innerText}</td>
           <td><span class="badge bg-primary">済み</span></td>
         `;
         toggleCheckedIn(); // 状態に応じて再描画
