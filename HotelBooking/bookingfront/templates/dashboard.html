@@ -53,15 +53,17 @@
       <h1 class="mb-4">ダッシュボード</h1>
       <p>以下のリンクから、それぞれの管理機能へ移動できます。</p>
       <ul class="list-group">
-        <li class="list-group-item"><a href="{% url 'bookingback:checkinlist' %}">本日のチェックイン</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingback:checkoutlist' %}">本日のチェックアウト</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:checkinlist' %}">本日のチェックイン</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:checkoutlist' %}">本日のチェックアウト</a></li>
         <li class="list-group-item"><a href="">現在の入室数</a></li>  
-        <li class="list-group-item"><a href="{% url 'bookingback:guests_list' %}">宿泊者リスト</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingback:clean_manage' %}">清掃管理</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingback:kyakusitu' %}">客室設定</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingback:edit_plans' %}">掲載状況の管理</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingback:shukei' %}">集計用管理</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingback:room_status' %}">部屋管理</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:guests_list' %}">宿泊者リスト</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:clean_manage' %}">清掃管理</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:kyakusitu' %}">客室設定</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:edit_plans' %}">掲載状況の管理</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:shukei' %}">集計用管理</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:room_status' %}">部屋管理</a></li>
+        <p>部屋タイプ: {{ room_type.name }}</p>
+        <p>プラン: {{ plan.name }}</p>
       </ul>
     </div>
 

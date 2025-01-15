@@ -19,4 +19,5 @@ urlpatterns = [
     path('edit_plans/',views.edit_plans,name="edit_plans"),
     path('checkinlist/',views.shukei,name="shukei"),
     path('room_status/',views.room_status,name="room_status"),
+    path('dashboard/',views.dashboard,name="dashboard"),
 ]
