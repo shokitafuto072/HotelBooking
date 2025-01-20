@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model 
+
+User=get_user_model()
 
 """
 class Reservation(models.Model):
@@ -29,9 +32,36 @@ class Plan(models.Model):
         cls.objects.get_or_create(name="スイートプラン", description="スイートルーム1泊", price=15000, meal_included=True)
 
 class Reservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="reservations")
+    email = models.EmailField(
+        verbose_name=("email"),
+        unique=True
+    )
+    first_name = models.CharField(
+        verbose_name=("first_name"),
+        max_length=150,
+        null=True,
+        blank=False
+    )
+    last_name = models.CharField(
+        verbose_name=("last_name"),
+        max_length=150,
+        null=True,
+        blank=False
+    )
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     reservation_date = models.DateField()
 
     def __str__(self):
-        return f"Reservation for {self.room_type} on {self.reservation_date}"
+        return f"Reservation for {self.user.account_id} in {self.room_type.name} on {self.reservation_date}"
+    
+    def save(self, *args, **kwargs):
+        if self.user:
+            # ユーザーの情報をReservationにコピー
+            self.account_id = self.user.account_id
+            self.email = self.user.email
+            self.first_name = self.user.first_name
+            self.last_name = self.user.last_name
+        super(Reservation, self).save(*args, **kwargs)
+    

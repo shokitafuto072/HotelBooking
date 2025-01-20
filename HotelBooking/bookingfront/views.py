@@ -25,7 +25,7 @@ def booking_form(request):
 """
 
     
-@login_required(login_url='/accounts/')   
+@login_required#(login_url='/accounts/')   
 def booking_confirmation(request):
     if request.method == 'POST':
         selected_plan_id = request.POST.get('plan_id')
@@ -48,7 +48,7 @@ def booking_confirmation(request):
     return HttpResponse("Invalid request!", status=400)
 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def booking_complete(request):
     if request.method == 'POST':
         selected_room_id = request.session.get('selected_room')
@@ -62,6 +62,7 @@ def booking_complete(request):
         selected_plan = Plan.objects.get(id=selected_plan_id)
 
         Reservation.objects.create(
+            user=request.user, # 追加：ログインユーザーを予約に紐づけ
             room_type=selected_room,
             plan=selected_plan,
             reservation_date="2024-11-26"  # 適宜日付を動的に変更可能
@@ -73,7 +74,8 @@ def booking_complete(request):
 
         return render(request, 'booking_complete.html', {
             'room_type': selected_room,
-            'plan': selected_plan
+            'plan': selected_plan,
+            'reservation': Reservation,  # 予約情報も渡す
         })
     return HttpResponse("Invalid request!", status=400)
 

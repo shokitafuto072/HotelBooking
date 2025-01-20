@@ -129,6 +129,7 @@ STATICFILES_DIRS=(os.path.join(BASE_DIR,'HotelBooking/static'),)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 
 
