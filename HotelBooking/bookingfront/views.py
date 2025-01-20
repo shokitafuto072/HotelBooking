@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import RoomType, Plan, Reservation
+from django.contrib.auth.decorators import login_required
 
 def room_selection(request):
     room_types = RoomType.objects.all()
     return render(request, 'room_selection.html', {'room_types': room_types})
+
+
 
 def plan_selection(request):
     if request.method == 'POST':
@@ -22,7 +25,7 @@ def booking_form(request):
 """
 
     
-
+@login_required(login_url='/accounts/')   
 def booking_confirmation(request):
     if request.method == 'POST':
         selected_plan_id = request.POST.get('plan_id')
@@ -45,7 +48,7 @@ def booking_confirmation(request):
     return HttpResponse("Invalid request!", status=400)
 
 
-
+@login_required
 def booking_complete(request):
     if request.method == 'POST':
         selected_room_id = request.session.get('selected_room')
@@ -78,9 +81,9 @@ def booking_complete(request):
 
 
 def dashboard(request):
-    room_type = RoomType.objects.get(id=1)  # 例: 部屋タイプを取得
-    plan = Plan.objects.get(id=1)  # 例: プランを取得
-    return render(request, 'dashboard.html', {'room_type': room_type, 'plan': plan})
+    #room_type = RoomType.objects.get(id=1)  # 例: 部屋タイプを取得
+    #plan = Plan.objects.get(id=1)  # 例: プランを取得
+    return render(request, 'dashboard.html', )#{'room_type': room_type, 'plan': plan})
    
 
 def checkinlist(request):

@@ -33,8 +33,10 @@
     </style>
   </head>
   <body>
+    <a href="{% url 'accounts:index' %}" class="btn btn-primary">Login</a>
 
     <h1>部屋を選択</h1>
+    
       {% for room in room_types %}
 
       <div class="container">
