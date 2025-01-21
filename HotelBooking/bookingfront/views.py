@@ -85,7 +85,7 @@ def booking_complete(request):
 def dashboard(request):
     #room_type = RoomType.objects.get(id=1)  # 例: 部屋タイプを取得
     #plan = Plan.objects.get(id=1)  # 例: プランを取得
-    return render(request, 'dashboard.html', )#{'room_type': room_type, 'plan': plan})
+    return render(request, 'dashboard.html',)# {'room_type': room_type, 'plan': plan})
    
 
 def checkinlist(request):
@@ -95,7 +95,9 @@ def checkoutlist(request):
     return render(request, 'checkoutlist.html')
 
 def guests_list(request):
-    return render(request, 'guests_list.html')
+    reservations = Reservation.objects.all() 
+    return render(request, 'guests_list.html', {'reservations': reservations})
+   
 
 def clean_manage(request):
     return render(request, 'clean_manage.html')
@@ -111,5 +113,3 @@ def shukei(request):
 
 def room_status(request):
     return render(request, 'room_status.html')
-
-
