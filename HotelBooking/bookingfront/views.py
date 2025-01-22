@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from .models import RoomType, Plan, Reservation
 from django.contrib.auth.decorators import login_required
 
+def home(request):
+    return render(request, 'home.html')
+
 def room_selection(request):
     room_types = RoomType.objects.all()
     return render(request, 'room_selection.html', {'room_types': room_types})
@@ -83,9 +86,7 @@ def booking_complete(request):
 
 
 def dashboard(request):
-    #room_type = RoomType.objects.get(id=1)  # 例: 部屋タイプを取得
-    #plan = Plan.objects.get(id=1)  # 例: プランを取得
-    return render(request, 'dashboard.html',)# {'room_type': room_type, 'plan': plan})
+    return render(request, 'dashboard.html')
    
 
 def checkinlist(request):
