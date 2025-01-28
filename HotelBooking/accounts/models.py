@@ -44,6 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         max_length=10
     )
+
     email = models.EmailField(
         verbose_name=_("email"),
         unique=True
@@ -65,6 +66,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True
     )
+    postal_number=models.CharField(max_length=7)
+    address=models.CharField(max_length=100)
     is_superuser = models.BooleanField(
         verbose_name=_("is_superuer"),
         default=False

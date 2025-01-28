@@ -11,7 +11,7 @@ class Reservation(models.Model):
 
 class RoomType(models.Model):
     name = models.CharField(max_length=50)
-
+    reservation_date=models.DateField(null=True)
     def __str__(self):
         return self.name
 
@@ -33,10 +33,18 @@ class Plan(models.Model):
 
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="reservations")
+    password = models.CharField(max_length=50)
     email = models.EmailField(
         verbose_name=("email"),
         unique=True
     )
+    birth_date = models.DateField(
+        verbose_name=("birth_date"),
+        blank=True,
+        null=True
+    )
+    postal_number=models.CharField(max_length=7)
+    address=models.CharField(max_length=100)
     first_name = models.CharField(
         verbose_name=("first_name"),
         max_length=150,
@@ -50,8 +58,8 @@ class Reservation(models.Model):
         blank=False
     )
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
+    reservation_date=models.DateField(null=True)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
-    reservation_date = models.DateField()
 
     def __str__(self):
         return f"Reservation for {self.user.account_id} in {self.room_type.name} on {self.reservation_date}"
@@ -60,8 +68,16 @@ class Reservation(models.Model):
         if self.user:
             # ユーザーの情報をReservationにコピー
             self.account_id = self.user.account_id
+            self.password = self.user.password
             self.email = self.user.email
+            self.birth_date = self.user.birth_date
+            self.postal_number = self.user.postal_number
+            self.address = self.user.address
             self.first_name = self.user.first_name
             self.last_name = self.user.last_name
+
+        if self.room_type:
+            # ユーザーの情報をReservationにコピー
+           self.reservation_date = self.room_type.reservation_date
         super(Reservation, self).save(*args, **kwargs)
     

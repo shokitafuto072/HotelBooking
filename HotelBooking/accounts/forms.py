@@ -16,6 +16,9 @@ class SignUpForm(UserCreationForm):
             "first_name",
             "last_name",
             "birth_date",
+            "postal_number",
+            "address",    
+       
         )
         widgets = {
             'birth_date': DateInput(),

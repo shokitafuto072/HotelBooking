@@ -11,7 +11,7 @@ class UserAdmin(admin.ModelAdmin):
     exclude = ("username", )
 
     fieldsets = (
-        (None, {"fields": ("account_id", "email", "first_name", "last_name", "birth_date",
+        (None, {"fields": ("account_id", "email", "first_name", "last_name", "birth_date","postal_number","address","password",
                            "is_active", "created_at", "updated_at"
                            )}),
         ("Permissions", {

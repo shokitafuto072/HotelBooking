@@ -1,7 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import RoomType, Plan, Reservation
 from django.contrib.auth.decorators import login_required
+
+
+"""
+class Yoyaku(models.Model):
+    template_name = 'yoyaku.html'
+    model=Reservation
+    fields = ['user','email','roomtype','Reservation_date']
+"""
+def yoyaku(request):
+    reservations = Reservation.objects.all() 
+    return render(request, 'yoyaku.html', {'reservations': reservations})
+   
+   
 
 def home(request):
     return render(request, 'home.html')
