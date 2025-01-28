@@ -20,6 +20,8 @@
                 <th>予約ID</th>
                 <th>ユーザー名</th>
                 <th>メールアドレス</th>
+                <th>郵便番号</th>
+                <th>住所</th>
                 <th>名</th>
                 <th>姓</th>
                 <th>部屋タイプ</th>
@@ -32,8 +34,9 @@
                 <tr>
                     <td>{{ reservation.id }}</td> <!-- 予約のID -->
                     <td>{{ reservation.user }}</td>
-                    <td>{{ reservation.password }}</td>
                     <td>{{ reservation.email }}</td>
+                    <td>{{ reservation.postal_number }}</td>
+                    <td>{{ reservation.address }}</td>
                     <td>{{ reservation.first_name }}</td>
                     <td>{{ reservation.last_name }}</td>
                     <td>{{ reservation.room_type }}</td> <!-- 部屋タイプの名前 -->
