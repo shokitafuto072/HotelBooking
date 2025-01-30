@@ -4,12 +4,20 @@ from .models import RoomType, Plan, Reservation
 from django.contrib.auth.decorators import login_required
 
 
-"""
-class Yoyaku(models.Model):
+
+class Yoyaku():
     template_name = 'yoyaku.html'
     model=Reservation
     fields = ['user','email','roomtype','Reservation_date']
-"""
+
+    def get_queryset(self):
+        current_user = self.request.user
+        user_data=Reservation.objects.get(user=current_user)
+        if user_data:
+            queryset = Reservation.objects.filter(user=current_user)
+            queryset = queryset.order_by('Reservation_date')
+        return queryset
+          
 def yoyaku(request):
     reservations = Reservation.objects.all() 
     return render(request, 'yoyaku.html', {'reservations': reservations})
@@ -100,10 +108,10 @@ def booking_complete(request):
 @login_required
 def dashboard(request):
     if  request.user.is_superuser:
-        #return redirect('/accounts/login/?next=%s' % request.path)
         return render(request, 'dashboard.html')
-   
-
+    else:
+        return render(request, 'notpage.html')
+        
 def checkinlist(request):
     return render(request, 'checkinlist.html')
 
