@@ -4,15 +4,15 @@
 {% if user.is_authenticated %}
 <div class="h1">MyPage</div>
 {% else %}
-<div class="h1">Main</div>
 {% endif %}
 {% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
 <div class="h2">Welcome {{ user.first_name }} {{ user.last_name }}</div>
-<a href="{% url 'accounts:logout' %}" class="btn btn-primary">Logout</a>
+<a href="{% url 'bookingfront:home' %}" class="btn btn-primary">ホームへ戻る</a>
+<a href="{% url 'accounts:logout' %}" class="btn btn-primary">ログアウト</a>
 {% else %}
-<a href="{% url 'accounts:signup' %}" class="btn btn-primary">Signup</a>
-<a href="{% url 'accounts:login' %}" class="btn btn-primary">Login</a>
+<a href="{% url 'accounts:signup' %}" class="btn btn-primary">会員登録へ</a>
+<a href="{% url 'accounts:login' %}" class="btn btn-primary">ログイン</a>
 {% endif %}
 {% endblock %}

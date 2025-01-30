@@ -11,8 +11,7 @@ urlpatterns = [
     path('plan_selection/', views.plan_selection, name='plan_selection'),
     path('booking_confirmation/', views.booking_confirmation, name='booking_confirmation'),
     path('booking_complete/', views.booking_complete, name='booking_complete'),
-    #path('booking_form/', views.booking_form, name='booking_form'),
-
+   
     path('dashboard',views.dashboard,name="dashboard"),
     path('checkinlist/',views.checkinlist,name="checkinlist"),
     path('checkoutlist/',views.checkoutlist,name="checkoutlist"),

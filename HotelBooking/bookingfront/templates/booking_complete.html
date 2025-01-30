@@ -8,6 +8,7 @@
     <h1>予約が完了しました</h1>
     <p>部屋タイプ: {{ room_type.name }}</p>
     <p>プラン: {{ plan.name }}</p>
+    <a href="{% url 'bookingfront:home' %}" class="btn btn-primary">ホーム画面へ</a>
 </body>
 </html>
 

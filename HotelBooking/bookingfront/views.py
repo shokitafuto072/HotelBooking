@@ -97,9 +97,11 @@ def booking_complete(request):
 
 
 
-
+@login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    if  request.user.is_superuser:
+        #return redirect('/accounts/login/?next=%s' % request.path)
+        return render(request, 'dashboard.html')
    
 
 def checkinlist(request):
@@ -112,7 +114,6 @@ def guests_list(request):
     reservations = Reservation.objects.all() 
     return render(request, 'guests_list.html', {'reservations': reservations})
    
-
 def clean_manage(request):
     return render(request, 'clean_manage.html')
 
