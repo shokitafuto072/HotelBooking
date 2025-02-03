@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ reservation.first_name }} {{ reservation.last_name }}さんの予約を削除してもよろしいですか？</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">はい、削除します</button>
+  </form>
+  <a href="{% url 'reservation_list' %}">キャンセル</a>
+{% endblock %}

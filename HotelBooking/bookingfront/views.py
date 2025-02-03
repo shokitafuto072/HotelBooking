@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import RoomType, Plan, Reservation
 from django.contrib.auth.decorators import login_required
+from .forms import ReservationForm 
+from django.views import View
 
 
 
-class Yoyaku():
+class Yoyaku(View):
     template_name = 'yoyaku.html'
     model=Reservation
     fields = ['user','email','roomtype','Reservation_date']
@@ -17,12 +19,34 @@ class Yoyaku():
             queryset = Reservation.objects.filter(user=current_user)
             queryset = queryset.order_by('Reservation_date')
         return queryset
+    
+    
           
+   
+    
+    
 def yoyaku(request):
     reservations = Reservation.objects.all() 
     return render(request, 'yoyaku.html', {'reservations': reservations})
-   
-   
+    
+def update_yoyaku(request, pk):
+        reservation = get_object_or_404(Reservation, pk=pk)
+        if request.method == 'POST':
+            form = ReservationForm(request.POST, instance=reservation)
+            if form.is_valid():
+                reservation = form.save(commit=False)
+                reservation.save()
+                return redirect('yoyaku', pk=reservation.pk)
+        else:
+            form = ReservationForm(instance=reservation)
+        return render(request, 'yoyaku.html', {'form': form})
+
+def delete_yoyaku(request, pk):
+        reservation=get_object_or_404(Reservation, pk=pk)
+        if request.method == 'POST':
+           reservation.delete()
+           return redirect('yoyaku')
+        return render(request, 'yoyaku.html', {'reservation': reservation})
 
 def home(request):
     return render(request, 'home.html')

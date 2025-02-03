@@ -5,7 +5,12 @@ app_name = 'bookingfront'
 
 urlpatterns = [
     
+    path('yoyaku', views.Yoyaku.as_view(), name='yoyaku'),
     path('yoyaku', views.yoyaku, name='yoyaku'),
+
+    path('reservation/update/<int:pk>/', views.update_yoyaku, name='update_yoyaku'),
+    path('reservation/delete/<int:pk>/', views.delete_yoyaku, name='delete_yoyaku'),
+
     path('', views.home, name='home'),
     path('room_selection', views.room_selection, name='room_selection'),
     path('plan_selection/', views.plan_selection, name='plan_selection'),
