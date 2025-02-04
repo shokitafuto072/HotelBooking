@@ -4,12 +4,12 @@ from . import views
 app_name = 'bookingfront'
 
 urlpatterns = [
-    
-    path('yoyaku', views.Yoyaku.as_view(), name='yoyaku'),
-    path('yoyaku', views.yoyaku, name='yoyaku'),
+     path('guests_list/', views.guests_list, name='guests_list'),
+    path('yoyaku/', views.yoyaku, name='yoyaku'),
+    path('delete_reservation/<int:reservation_id>/', views.delete_reservation, name='delete_reservation'),
+    path('update_reservation/<int:reservation_id>/', views.update_reservation, name='update_reservation'),
 
-    path('reservation/update/<int:pk>/', views.update_yoyaku, name='update_yoyaku'),
-    path('reservation/delete/<int:pk>/', views.delete_yoyaku, name='delete_yoyaku'),
+   
 
     path('', views.home, name='home'),
     path('room_selection', views.room_selection, name='room_selection'),
@@ -17,7 +17,6 @@ urlpatterns = [
     path('booking_confirmation/', views.booking_confirmation, name='booking_confirmation'),
     path('booking_complete/', views.booking_complete, name='booking_complete'),
    
-    path('dashboard',views.dashboard,name="dashboard"),
     path('checkinlist/',views.checkinlist,name="checkinlist"),
     path('checkoutlist/',views.checkoutlist,name="checkoutlist"),
     path('guests_list/',views.guests_list,name="guests_list"),

@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import RoomType, Plan, Reservation
 from django.contrib.auth.decorators import login_required
-from .forms import ReservationForm 
 from django.views import View
+from .forms import ReservationForm
+from django.urls import reverse
 
-
-
+"""
 class Yoyaku(View):
     template_name = 'yoyaku.html'
     model=Reservation
@@ -19,34 +19,44 @@ class Yoyaku(View):
             queryset = Reservation.objects.filter(user=current_user)
             queryset = queryset.order_by('Reservation_date')
         return queryset
+"""  
+
+@login_required
+def delete_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    
+    if reservation.user == request.user or request.user.is_superuser:
+        reservation.delete()
+        return redirect(reverse('bookingfront:yoyaku'))  # 削除後にリストにリダイレクト
+    else:
+        return HttpResponse("You do not have permission to delete this reservation.", status=403)
     
     
-          
+@login_required
+def update_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+
+    # もしユーザーが予約の所有者でない場合や管理者でない場合はエラーメッセージを表示
+    if reservation.user != request.user and not request.user.is_superuser:
+        return HttpResponse("You do not have permission to update this reservation.", status=403)
+
+    if request.method == 'POST':
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('bookingfront:yoyaku'))  # 更新後にリストページにリダイレクト
+    else:
+        form = ReservationForm(instance=reservation)
+
+    return render(request, 'update_reservation.html', {'form': form, 'reservation': reservation})       
    
     
-    
+@login_required  
 def yoyaku(request):
-    reservations = Reservation.objects.all() 
+    reservations = Reservation.objects.filter(user=request.user) 
     return render(request, 'yoyaku.html', {'reservations': reservations})
     
-def update_yoyaku(request, pk):
-        reservation = get_object_or_404(Reservation, pk=pk)
-        if request.method == 'POST':
-            form = ReservationForm(request.POST, instance=reservation)
-            if form.is_valid():
-                reservation = form.save(commit=False)
-                reservation.save()
-                return redirect('yoyaku', pk=reservation.pk)
-        else:
-            form = ReservationForm(instance=reservation)
-        return render(request, 'yoyaku.html', {'form': form})
 
-def delete_yoyaku(request, pk):
-        reservation=get_object_or_404(Reservation, pk=pk)
-        if request.method == 'POST':
-           reservation.delete()
-           return redirect('yoyaku')
-        return render(request, 'yoyaku.html', {'reservation': reservation})
 
 def home(request):
     return render(request, 'home.html')
