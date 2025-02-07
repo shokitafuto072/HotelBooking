@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import RoomType, Plan, Reservation
+from .models import RoomType, Plan, Reservation,RoomAllocation,User
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from .forms import ReservationForm
 from django.urls import reverse
+
 
 """
 class Yoyaku(View):
@@ -20,6 +21,9 @@ class Yoyaku(View):
             queryset = queryset.order_by('Reservation_date')
         return queryset
 """  
+
+def already(request):
+    return render(request, 'already.html')
 
 @login_required
 def delete_reservation(request, reservation_id):
@@ -63,7 +67,7 @@ def home(request):
 
 def room_selection(request):
     room_types = RoomType.objects.all()
-    return render(request, 'room_selection.html', {'room_types': room_types})
+    return render(request, 'room_selection.html', {'room_types': room_types,})
 
 
 
@@ -83,8 +87,9 @@ def booking_form(request):
 """
 
     
-@login_required#(login_url='/accounts/')   
+@login_required
 def booking_confirmation(request):
+
     if request.method == 'POST':
         selected_plan_id = request.POST.get('plan_id')
         selected_room_id = request.session.get('selected_room')
@@ -104,39 +109,40 @@ def booking_confirmation(request):
             'plan': selected_plan
         })
     return HttpResponse("Invalid request!", status=400)
-
+    
 
 @login_required(login_url='/accounts/login/')
 def booking_complete(request):
-    if request.method == 'POST':
-        selected_room_id = request.session.get('selected_room')
-        selected_plan_id = request.session.get('selected_plan')
+        
+        if request.method == 'POST':
+            selected_room_id = request.session.get('selected_room')
+            selected_plan_id = request.session.get('selected_plan')
 
-        if not selected_room_id or not selected_plan_id:
-            return HttpResponse("Required data is missing!", status=400)
+            if not selected_room_id or not selected_plan_id:
+                return HttpResponse("Required data is missing!", status=400)
 
-        # データを保存
-        selected_room = RoomType.objects.get(id=selected_room_id)
-        selected_plan = Plan.objects.get(id=selected_plan_id)
+            # データを保存
+            selected_room = RoomType.objects.get(id=selected_room_id)
+            selected_plan = Plan.objects.get(id=selected_plan_id)
 
-        Reservation.objects.create(
-            user=request.user, # 追加：ログインユーザーを予約に紐づけ
-            room_type=selected_room,
-            plan=selected_plan,
-            reservation_date="2024-11-26"  # 適宜日付を動的に変更可能
-        )
+            Reservation.objects.create(
+                user=request.user, # 追加：ログインユーザーを予約に紐づけ
+                room_type=selected_room,
+                plan=selected_plan,
+                reservation_date="2024-11-26"  # 適宜日付を動的に変更可能
+            )
 
-        # セッションをクリア
-        request.session.pop('selected_room', None)
-        request.session.pop('selected_plan', None)
+            # セッションをクリア
+            request.session.pop('selected_room', None)
+            request.session.pop('selected_plan', None)
 
-        return render(request, 'booking_complete.html', {
-            'room_type': selected_room,
-            'plan': selected_plan,
-            'reservation': Reservation,  # 予約情報も渡す
-        })
-    return HttpResponse("Invalid request!", status=400)
-
+            return render(request, 'booking_complete.html', {
+                'room_type': selected_room,
+                'plan': selected_plan,
+                'reservation': Reservation,  # 予約情報も渡す
+            })
+        return HttpResponse("Invalid request!", status=400)
+    
 
 
 @login_required
@@ -168,5 +174,35 @@ def edit_plans(request):
 def shukei(request):
     return render(request, 'shukei.html')
 
-def room_status(request):
-    return render(request, 'room_status.html')
+
+
+
+@login_required
+def room_assignment(request):
+    room_allocations = RoomAllocation.objects.all()
+    user_reservations = [
+        {'id': reservation.id, 'first_name': reservation.user.first_name, 'last_name': reservation.user.last_name}
+        for reservation in Reservation.objects.all()
+    ]
+
+    if request.method == 'POST':
+        # フォームから送られてきた予約情報を取得
+        reservation_id = request.POST.get('reservation')
+        roomallocation_id = request.POST.get('roomallocation_id')  # 対応する部屋のIDも送信されていると仮定
+        
+        # 選択された予約を取得
+        reservation = get_object_or_404(Reservation, id=reservation_id)
+        roomallocation = get_object_or_404(RoomAllocation, id=roomallocation_id)
+        
+        # 部屋割り当てに予約を関連付け
+        roomallocation.reservation = reservation  # `RoomAllocation`に予約を設定
+        roomallocation.save()  # 保存
+        
+        return redirect('bookingfront:room_assignment')  # リダイレクトして更新された情報を表示
+    
+    return render(request, 'room_assignment.html', {
+        'room_allocations': room_allocations,
+        'user_reservations': user_reservations,
+    })
+
+   

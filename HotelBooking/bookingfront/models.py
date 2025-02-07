@@ -12,13 +12,14 @@ class Reservation(models.Model):
 class RoomType(models.Model):
     name = models.CharField(max_length=50)
     reservation_date=models.DateField(null=True)
+    room_price = models.DecimalField(max_digits=8, decimal_places=2,null=False)
     def __str__(self):
         return self.name
 
 class Plan(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    plan_price = models.DecimalField(max_digits=8, decimal_places=2)
     meal_included = models.BooleanField(default=False)
 
     def __str__(self):
@@ -80,4 +81,28 @@ class Reservation(models.Model):
             # ユーザーの情報をReservationにコピー
            self.reservation_date = self.room_type.reservation_date
         super(Reservation, self).save(*args, **kwargs)
+
+class RoomAllocation(models.Model):
+    reservation = models.ForeignKey(Reservation, on_delete=models.SET_NULL, null=True, blank=True)  # null=True, blank=True で任意に設定
+    room_type = models.CharField(max_length=50, null=True, blank=True)  # null=True, blank=True で任意
+    room_number = models.CharField(max_length=10, null=True, blank=True)  # null=True, blank=True で任意
+    room_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)  # null=True, blank=True で任意
+    description = models.TextField(null=True, blank=True)  # null=True, blank=True で任意
+    first_name = models.CharField(max_length=150, null=True, blank=True)  # first_name は任意に設定
+    last_name = models.CharField(max_length=150, null=True, blank=True)  # last_name は任意に設定
+
+    def __str__(self):
+        return f"{self.room_number} ({self.room_type})"
+    
+    # save メソッドをカスタマイズして、必要な情報を予約情報から引き継げるようにする
+    def save(self, *args, **kwargs):
+        if self.reservation:
+            self.first_name = self.reservation.first_name
+            self.last_name = self.reservation.last_name
+            self.room_type = self.reservation.room_type.name  # 予約の部屋タイプを使用
+
+        super(RoomAllocation, self).save(*args, **kwargs)
+
+    
+ 
     

@@ -8,7 +8,7 @@
     <h1>予約内容確認</h1>
     <p>部屋タイプ: {{ room_type.name }}</p>
     <p>プラン: {{ plan.name }}</p>
-    <p>料金: ¥{{ plan.price }}</p>
+    <p>料金: ¥{{ plan.plan_price }}</p>
     <p>食事付き: {{ plan.meal_included|yesno:"あり,なし" }}</p>
 
     <form method="POST" action="{% url 'bookingfront:booking_complete' %}">
