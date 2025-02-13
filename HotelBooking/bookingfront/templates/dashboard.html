@@ -7,61 +7,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <body>
-    <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">ホテル管理システム</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="checkinlist.html">本日のチェックイン</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="checkoutlist.html">本日のチェックアウト</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">現在の入室数</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="guests_list.html">宿泊者リスト</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="clean_manage.html">清掃管理</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="kyakusitu .html">客室設定</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="edit_plans.html">掲載状況の管理</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="shukei.html">集計用管理</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="room_status.html">部屋管理</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
     <!-- メインコンテンツ -->
     <div class="container mt-5">
       <h1 class="mb-4">ダッシュボード</h1>
       <p>以下のリンクから、それぞれの管理機能へ移動できます。</p>
       <ul class="list-group">
+        <li class="list-group-item"><a href="{% url 'bookingfront:guests_list' %}">予約者リスト</a></li>
+        <li class="list-group-item"><a href="{% url 'bookingfront:room_assignment' %}">部屋割り当て</a></li>
+        <!--
         <li class="list-group-item"><a href="{% url 'bookingfront:checkinlist' %}">本日のチェックイン</a></li>
         <li class="list-group-item"><a href="{% url 'bookingfront:checkoutlist' %}">本日のチェックアウト</a></li>
-        <li class="list-group-item"><a href="">現在の入室数</a></li>  
-        <li class="list-group-item"><a href="{% url 'bookingfront:guests_list' %}">宿泊者リスト</a></li>
+        <li class="list-group-item"><a href="">現在の入室数</a></li>
         <li class="list-group-item"><a href="{% url 'bookingfront:clean_manage' %}">清掃管理</a></li>
         <li class="list-group-item"><a href="{% url 'bookingfront:kyakusitu' %}">客室設定</a></li>
         <li class="list-group-item"><a href="{% url 'bookingfront:edit_plans' %}">掲載状況の管理</a></li>
         <li class="list-group-item"><a href="{% url 'bookingfront:shukei' %}">集計用管理</a></li>
-        <li class="list-group-item"><a href="{% url 'bookingfront:room_assignment' %}">部屋状況</a></li>
+        -->  
+        
+        
+       
         
       </ul>
     </div>
