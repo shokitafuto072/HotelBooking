@@ -11,7 +11,6 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, account_id=account_id, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
         return user
 
     def create_user(self, email, account_id, password=None, **extra_fields):
