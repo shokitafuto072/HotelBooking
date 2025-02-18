@@ -61,6 +61,7 @@ class Reservation(models.Model):
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     reservation_date=models.DateField(null=True)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
+    payment_method = models.CharField(max_length=50, choices=[('現金', '現金'), ('クレジットカード', 'クレジットカード')])
 
     def __str__(self):
         return f"Reservation for {self.user.account_id} in {self.room_type.name} on {self.reservation_date}"

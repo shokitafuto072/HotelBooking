@@ -8,6 +8,8 @@
     <h1>予約が完了しました</h1>
     <p>部屋タイプ: {{ room_type.name }}</p>
     <p>プラン: {{ plan.name }}</p>
+    <p>料金: ¥{{ plan.plan_price }}</p>
+    <p>支払い方法: {{ payment_method }}</p>
     <a href="{% url 'bookingfront:home' %}" class="btn btn-primary">ホーム画面へ</a>
 </body>
 </html>

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import RoomType, Plan, Reservation,RoomAllocation,User
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from .forms import ReservationForm
+from .forms import ReservationForm, PlanForm, RoomTypeForm
 from django.urls import reverse
 
 
@@ -86,7 +86,7 @@ def booking_form(request):
     return HttpResponse("Required data is missing!", status=400)
 """
 
-    
+"""
 @login_required
 def booking_confirmation(request):
 
@@ -100,6 +100,7 @@ def booking_confirmation(request):
         # 選択された部屋とプランを取得
         selected_room = RoomType.objects.get(id=selected_room_id)
         selected_plan = Plan.objects.get(id=selected_plan_id)
+        
 
         # セッションに保存
         request.session['selected_plan'] = selected_plan_id
@@ -109,8 +110,69 @@ def booking_confirmation(request):
             'plan': selected_plan
         })
     return HttpResponse("Invalid request!", status=400)
-    
 
+"""
+
+@login_required
+def booking_confirmation(request):
+    if request.method == 'POST':
+        selected_plan_id = request.POST.get('plan_id')
+        selected_room_id = request.session.get('selected_room')
+
+        if not selected_plan_id or not selected_room_id:
+            return HttpResponse("必須データが欠けています!", status=400)
+
+        # 部屋とプランを取得
+        selected_room = RoomType.objects.get(id=selected_room_id)
+        selected_plan = Plan.objects.get(id=selected_plan_id)
+
+        # セッションにプラン情報を保存
+        request.session['selected_plan'] = selected_plan_id
+
+        return render(request, 'booking_confirmation.html', {
+            'room_type': selected_room,
+            'plan': selected_plan
+        })
+    return HttpResponse("無効なリクエストです！", status=400)
+
+@login_required
+def booking_complete(request):
+    if request.method == 'POST':
+        # POSTで送信されたデータを一度に処理
+        selected_room_id = request.session.get('selected_room')
+        selected_plan_id = request.session.get('selected_plan')
+        payment_method = request.POST.get('payment_method')
+
+        if not selected_room_id or not selected_plan_id or not payment_method:
+            return HttpResponse("必須データが欠けています!", status=400)
+
+        # 部屋とプランを取得
+        selected_room = RoomType.objects.get(id=selected_room_id)
+        selected_plan = Plan.objects.get(id=selected_plan_id)
+
+        # 予約を作成
+        reservation = Reservation.objects.create(
+            user=request.user,  # ログインユーザーを予約に紐づけ
+            room_type=selected_room,
+            plan=selected_plan,
+            reservation_date="2024-11-26",  # 必要に応じて変更
+            payment_method=payment_method  # 支払い方法を保存
+        )
+
+        # セッションをクリア
+        request.session.pop('selected_room', None)
+        request.session.pop('selected_plan', None)
+
+        return render(request, 'booking_complete.html', {
+            'room_type': selected_room,
+            'plan': selected_plan,
+            'payment_method': payment_method,  # 支払い方法を渡す
+        })
+    return HttpResponse("無効なリクエストです！", status=400)
+
+
+    
+"""
 @login_required(login_url='/accounts/login/')
 def booking_complete(request):
         
@@ -142,7 +204,7 @@ def booking_complete(request):
                 'reservation': Reservation,  # 予約情報も渡す
             })
         return HttpResponse("Invalid request!", status=400)
-    
+"""   
 
 
 @login_required
@@ -173,6 +235,51 @@ def edit_plans(request):
 
 def shukei(request):
     return render(request, 'shukei.html')
+
+def update_plan(request):
+    if request.method == 'POST':
+        form = PlanForm(request.POST)
+        if form.is_valid():
+            form.save()  # フォームのデータをデータベースに保存
+            return redirect('bookingfront:home')  # 保存後にリダイレクト
+
+    else:
+        form = PlanForm()
+    
+    return render(request, 'update_plan.html', {'form': form})
+
+
+
+def delete_plan(request, plan_id):
+    plan = get_object_or_404(Plan, pk=plan_id)  # post_idに対応するPostオブジェクトを取得
+    plan.delete()  # データベースから削除
+    return redirect('bookingfront:sousa')  # 削除後にリダイレクト
+
+
+def update_room_type(request):
+    if request.method == 'POST':
+        form = RoomTypeForm(request.POST)
+        if form.is_valid():
+            form.save()  # フォームのデータをデータベースに保存
+            return redirect('bookingfront:home')  # 保存後にリダイレクト
+
+    else:
+        form = RoomTypeForm()
+    
+    return render(request, 'update_room_type.html', {'form': form})
+
+def delete_room_type(request, room_type_id):
+    room_type = get_object_or_404(RoomType, pk=room_type_id)  # post_idに対応するPostオブジェクトを取得
+    room_type.delete()  # データベースから削除
+    return redirect('bookingfront:sousa')  # 削除後にリダイレクト
+
+
+def sousa(request):
+    plans=Plan.objects.all()
+    room_types=RoomType.objects.all()
+    return render(request, 'sousa.html', {'plans': plans, 'room_types': room_types})
+ 
+    
 
 
 

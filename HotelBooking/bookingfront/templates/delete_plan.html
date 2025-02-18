@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- example_post_list.html -->
+{% for post in posts %}
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+<a href="{% url 'delete_plan' plan.id %}">削除</a>
+{% endfor %}
+
+</head>
+<body>
+    
+</body>
+</html>

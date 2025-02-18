@@ -4,6 +4,12 @@ from . import views
 app_name = 'bookingfront'
 
 urlpatterns = [
+    path('delete_room_type/<int:room_type_id>/delete/', views.delete_room_type, name='delete_room_type'),
+    path('update_room_type/', views.update_room_type, name='update_room_type'),
+    path('delete_plan/<int:plan_id>/delete/', views.delete_plan, name='delete_plan'),
+    path('update_plan/', views.update_plan, name='update_plan'),
+
+    path('sousa/', views.sousa, name='sousa'),
     path('yoyaku/', views.yoyaku, name='yoyaku'),
     path('already/', views.already, name='already'),
     path('delete_reservation/<int:reservation_id>/', views.delete_reservation, name='delete_reservation'),

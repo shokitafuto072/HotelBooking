@@ -54,7 +54,7 @@
 
     {% for plan in plans %}
     <div>
-        <p>{{ plan.name }}: ¥{{ plan.plan_price }}</p>
+        <p>{{ plan.name }}: ¥{{ plan.plan_price }}{{plan.description}}</p>
         <form method="POST" action="{% url 'bookingfront:booking_confirmation' %}">
             {% csrf_token %}
             <input type="hidden" name="plan_id" value="{{ plan.id }}">
