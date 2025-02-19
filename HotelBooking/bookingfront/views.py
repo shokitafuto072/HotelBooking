@@ -230,6 +230,7 @@ def delete_room_type(request, room_type_id):
     return redirect('bookingfront:sousa')  # 削除後にリダイレクト
 
 
+@login_required
 def sousa(request):
     plans=Plan.objects.all()
     room_types=RoomType.objects.all()
