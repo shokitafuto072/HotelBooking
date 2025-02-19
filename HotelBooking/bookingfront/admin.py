@@ -11,8 +11,8 @@ class PlanAdmin(admin.ModelAdmin):
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ['id', 'room_type', 'plan', 'reservation_date']
-    list_filter = ['room_type', 'plan']
+    list_display = ['id', 'room_type', 'plan', 'reservation_date','payment_method']
+    list_filter = ['room_type', 'plan','payment_method']
 
 class RoomAllocationAdmin(admin.ModelAdmin):
     list_display = ['room_number', 'room_type', 'room_price', 'reservation_user']

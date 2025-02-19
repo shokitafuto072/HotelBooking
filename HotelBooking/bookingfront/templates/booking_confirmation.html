@@ -42,20 +42,15 @@
     <p>料金: ¥{{ plan.plan_price }}</p>
 
     <!-- 支払い方法選択フォーム -->
-    <form method="POST">
+    <form method="post" action="{% url 'bookingfront:booking_complete' %}">
         {% csrf_token %}
-        <!-- 隠しフィールドで部屋IDとプランIDを送信 -->
-        <input type="hidden" name="plan_id" value="{{ plan.id }}">
-        <input type="hidden" name="room_id" value="{{ room_type.id }}">
-
-        <label for="payment_method" class="form-label">支払い方法:</label>
-        <select name="payment_method" id="payment_method" class="form-select" required>
+        <!-- ...existing form fields... -->
+        <label for="payment_method">支払い方法:</label>
+        <select name="payment_method" id="payment_method">
             <option value="現金">現金</option>
             <option value="クレジットカード">クレジットカード</option>
         </select>
-
-        <!-- 予約確定ボタン -->
-        <button type="submit">予約を確定する</button>
+        <button type="submit">予約を完了する</button>
     </form>
 
 </body>

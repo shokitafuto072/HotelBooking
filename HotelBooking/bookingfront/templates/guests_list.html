@@ -23,6 +23,7 @@
                 <th>部屋タイプ</th>
                 <th>プラン</th>
                 <th>予約日</th>
+                <th>支払い方法</th>
                 
             </tr>
         </thead>
@@ -39,6 +40,7 @@
                     <td>{{ reservation.room_type }}</td> <!-- 部屋タイプの名前 -->
                     <td>{{ reservation.reservation_date }}</td>
                     <td>{{ reservation.plan }}</td> <!-- プランの名前 -->
+                    <td>{{ reservation.payment_method }}</td>
                 </tr>
           {% endfor %}
             

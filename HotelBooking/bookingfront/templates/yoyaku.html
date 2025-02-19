@@ -22,6 +22,7 @@
                 <th>部屋タイプ</th>
                 <th>プラン</th>
                 <th>予約日</th>
+                <th>支払い方法</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@
                     <td>{{ reservation.room_type }}</td> <!-- 部屋タイプの名前 -->
                     <td>{{ reservation.reservation_date }}</td>
                     <td>{{ reservation.plan }}</td> <!-- プランの名前 -->
+                    <td>{{ reservation.payment_method }}</td> 
                     <td>
                       <a href="{% url 'bookingfront:update_reservation' reservation.id %}" class="btn btn-warning btn-sm">更新</a>
                       <a href="{% url 'bookingfront:delete_reservation' reservation.id %}" class="btn btn-danger btn-sm" onclick="return confirm('本当に削除しますか？')">削除</a>

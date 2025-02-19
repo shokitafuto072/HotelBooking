@@ -4,6 +4,11 @@ from . import views
 app_name = 'bookingfront'
 
 urlpatterns = [
+    path('delete_room_allocation/<int:room_allocation_id>/delete/', views.delete_room_allocation, name='delete_room_allocation'),
+    path('update_room_allocation/', views.update_room_allocation, name='update_room_allocation'),
+
+
+
     path('delete_room_type/<int:room_type_id>/delete/', views.delete_room_type, name='delete_room_type'),
     path('update_room_type/', views.update_room_type, name='update_room_type'),
     path('delete_plan/<int:plan_id>/delete/', views.delete_plan, name='delete_plan'),

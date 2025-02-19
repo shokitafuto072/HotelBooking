@@ -33,6 +33,12 @@ class Plan(models.Model):
         cls.objects.get_or_create(name="スイートプラン", description="スイートルーム1泊", price=15000, meal_included=True)
 
 class Reservation(models.Model):
+    PAYMENT_METHOD_CHOICES = [
+        ('現金', '現金'),
+        ('クレジットカード', 'クレジットカード'),
+    ]
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='cash')
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="reservations")
     password = models.CharField(max_length=50)
     email = models.EmailField(
@@ -61,7 +67,7 @@ class Reservation(models.Model):
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     reservation_date=models.DateField(null=True)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
-    payment_method = models.CharField(max_length=50, choices=[('現金', '現金'), ('クレジットカード', 'クレジットカード')])
+   
 
     def __str__(self):
         return f"Reservation for {self.user.account_id} in {self.room_type.name} on {self.reservation_date}"
